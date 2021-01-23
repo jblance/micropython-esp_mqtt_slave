@@ -9,6 +9,7 @@ def run_command(command, full_command):
     results = {}
     results["command"] = command
     results["full_command"] = full_command
+    print("Using UART %s with baudrate %s" % (uart_no, baudrate))
     u = UART(uart_no, baudrate)
     u.init(baudrate=baudrate, timeout=1000)
     u.write(full_command)
