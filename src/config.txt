@@ -1,0 +1,8 @@
+{
+"SSID":"",
+"WIFI_PASSWORD":"",
+"SERVER":"",
+"CLIENT_ID":"ESP32-Sensor",
+"UART_NO": 2,
+"BAUDRATE": 2400,
+}
