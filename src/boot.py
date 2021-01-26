@@ -7,7 +7,12 @@ import webrepl
 f = open("config.txt")
 config = ujson.load(f)
 f.close()
-print("Loaded config: %s" % (config))
+# Obscure password in output
+_config = config
+_config["WIFI_PASSWORD"] = "********"
+
+print("boot.py: Loaded config: %s" % (_config))
+
 SSID = config["SSID"]
 WIFI_PASSWORD = config["WIFI_PASSWORD"]
 

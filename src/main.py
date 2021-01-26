@@ -11,11 +11,11 @@ def run_command(command, full_command):
     results["full_command"] = full_command
     print("Using UART %s with baudrate %s" % (uart_no, baudrate))
     u = UART(uart_no, baudrate)
-    u.init(baudrate=baudrate, timeout=1000)
+    u.init(baudrate=baudrate, timeout=2000)
     _write = u.write(full_command)
     print("write result %s" % _write)
-    sleep(0.5)  # give serial port time to receive the data
-    response = u.readline()
+    # sleep(0.5)  # give serial port time to receive the data
+    response = u.read()
     # response = u.read()  # read all available bytes
     print("response was: %s" % (response))
     results["result"] = response
@@ -59,7 +59,12 @@ def connect():
 f = open("config.txt")
 config = ujson.load(f)
 f.close()
-print("Loaded config: %s" % (config))
+# Obscure password in output
+_config = config
+_config["WIFI_PASSWORD"] = "********"
+
+print("main.py: Loaded config: %s" % (_config))
+
 server = config["SERVER"]
 client_id = config["CLIENT_ID"]
 uart_no = config["UART_NO"]
