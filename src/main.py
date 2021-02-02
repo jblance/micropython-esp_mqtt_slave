@@ -33,11 +33,12 @@ def sub_cb(*args, **kwargs):
         topic = args[0]
         msg = args[1]
         print("Got msg %s on topic: %s" % (msg, topic))
-        _msg = ujson.loads(msg)
-        print(_msg)
-        command = _msg["command"]
-        full_command = _msg["full_command"]
-        print("Executing command %s" % (command))
+        # _msg = ujson.loads(msg)
+        # print(_msg)
+        # command = _msg["command"]
+        command = "test"
+        full_command = msg
+        print("Executing command %s" % (full_command))
         #
         result = run_command(command, full_command)
         print("Got result %s" % (result))
