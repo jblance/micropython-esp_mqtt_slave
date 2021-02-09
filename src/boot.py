@@ -1,28 +1,35 @@
 # This file is executed on every boot (including wake-boot from deepsleep)
-import ujson
 import network
-import webrepl
+import time
+import ujson
+
+# import webrepl
 
 # Read in config file for settings
-f = open("config.txt")
+f = open("boot.cfg")
 config = ujson.load(f)
 f.close()
-# Obscure password in output
-_config = config
-_config["WIFI_PASSWORD"] = "********"
 
-print("boot.py: Loaded config: %s" % (_config))
-
+# Read network settings
 SSID = config["SSID"]
 WIFI_PASSWORD = config["WIFI_PASSWORD"]
+# Obscure password in output
+config["WIFI_PASSWORD"] = "********"
+print("boot.py: Loaded Config: %s" % (config))
+
 
 wlan = network.WLAN(network.STA_IF)
-if not wlan.isconnected():
-    print("Connecting to network...")
-    wlan.active(True)
+print("Connecting to network...")
+wlan.active(True)
+for _ in range(10):
     wlan.connect(SSID, WIFI_PASSWORD)
-    while not wlan.isconnected():
-        pass
-print("Network config:", wlan.ifconfig())
+    time.sleep(1)
+    if wlan.isconnected():
+        print("Connected.")
+        print("Network config:", wlan.ifconfig())
+        break
+    time.sleep(5)
+else:
+    print("Wifi connection failed")
 
-webrepl.start()
+# webrepl.start()

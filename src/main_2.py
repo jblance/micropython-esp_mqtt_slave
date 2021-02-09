@@ -24,7 +24,9 @@ while True:
     # u.init(baudrate=baudrate, timeout=2000)
     # sleep(0.5)  # give serial port time to receive the data
     response = u.read()
-    result = "HUH\r"
+    result = (
+        b"(230.0 50.0 0030 42.0 54.0 56.4 46.0 60 0 0 2 0 0 0 0 0 1 1 0 0 1 0 54.0 0 1 000\x9E\x60\r"
+    )
     # response = u.read()  # read all available bytes
     if response:
         print("response was: %s" % (response))
